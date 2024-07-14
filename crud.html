@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="crud.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h2>Crud Application</h2>
+    <div class="form">
+      <h4>Name</h4>
+      <input type="text" id="name" class="edit_item" placeholder="Name" />
+      <button id="add">Add</button>
+      <!-- <button id="save" hidden>Save</button>
+
+      <input type="text" class="edit_name" placeholder="Edit Name" hidden />
+      <button id="done" hidden>Done</button> -->
+    </div>
+    <div class="list">
+      <ul id="parent">
+
+
+      </ul>
+    </div>
+    <script>
+      const name = document.querySelector('#name')
+      const add = document.querySelector('#add')
+      const parentList = document.querySelector('#parent')
+      // const save = document.querySelector('#save')
+      // const editName = document.querySelector('#editName');
+      // const done = document.querySelector('#done');
+      add.addEventListener('click', addValue)
+
+      function addValue() {
+        const input = name.value
+        console.log(input)
+
+        const newLi = document.createElement('li')
+        newLi.innerHTML = ` <div>${input}</div>
+          <button onClick="edit(this)">Edit</button>
+          <button onClick="remove(this)">Dlt</button>`
+
+        parentList.appendChild(newLi)
+
+      }
+
+      function remove(e) {
+        console.log(e.parentElement)
+        e.parentElement.remove()
+
+      }
+      
+      function edit(editBtn) {
+        let li = editBtn.parentElement
+        let textDiv = li.children[0]
+        let editText = textDiv.textContent
+
+        if (editBtn.textContent == "Edit") {
+          editBtn.textContent = "Done"
+          let textInput = document.createElement("input")
+          textInput.type = "text"
+          textInput.value = editText
+
+          li.replaceChild(textInput, textDiv)
+        } else {
+          editBtn.textContent = "Edit"
+          let newText = li.children[0].value
+          let newTextDiv = document.createElement("div")
+          newTextDiv.textContent = newText
+
+          li.replaceChild(newTextDiv, li.children[0])
+        }
+      }
+
+
+    </script>
+</body>
+
+</html>
